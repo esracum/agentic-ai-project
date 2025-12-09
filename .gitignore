@@ -1,0 +1,16 @@
+# Python
+__pycache__/
+*.pyc
+
+# Sanal Ortam
+.venv/
+venv/
+env/
+
+# Çevresel Değişkenler (API Keyler burada!)
+.env
+.env.local
+
+# IDE/Editör dosyaları
+.vscode/
+.idea/
