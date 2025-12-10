@@ -1,5 +1,6 @@
-from functions.get_files_info import get_files_info
-from functions.get_file_content import get_file_content
+#from functions.get_files_info import get_files_info
+#from functions.get_file_content import get_file_content
+from functions.write_file import write_file
 
 
 
@@ -14,10 +15,28 @@ from functions.get_file_content import get_file_content
     print(pkg_content)
     pkg_conten = get_files_info(working_dir, "../")
     print(pkg_conten)'''
+
     
-def main():
+'''def main():
     working_dir= "calculator"
-    print(get_file_content(working_dir, "lorem.txt"))
+    #print(get_file_content(working_dir, "lorem.txt"))
+    print(get_file_content(working_dir, "main.py"))
+    print(get_file_content(working_dir, "pkg/calculator.py"))
+    print(get_file_content(working_dir, "/bin/cat"))
+    print(get_file_content(working_dir, "pkg/not_exists.py"))
+
+
+'''
+def main():
+
+    working_dir = "calculator"
+    print(write_file("calculator", "lorem.txt", "wait this is not lorem ipsum. this is differentolopokoliskom"))
+
+    print(write_file( working_dir, "pkg/morelorem.txt", "lorem ipsum dolor sit amet"))
+
+    print(write_file(working_dir, "/tmp/temp.txt", "wait this is should not be allowed"))
+    
+    print(write_file( working_dir, "pkg_not_exist/morelorem.txt", "lorem ipsum dolor sit amet"))
 
 
 
