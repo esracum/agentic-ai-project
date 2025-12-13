@@ -27,7 +27,7 @@ def get_file_content(working_directory, file_path):
         return f"Exception reading file: {e} "
 
 schema_get_file_content = types.FunctionDeclaration(
-    name="get_files_content",
+    name="get_file_content",
     description="Gets the contents of given file as a string.",
     parameters=types.Schema(
         type=types.Type.OBJECT,
@@ -36,7 +36,6 @@ schema_get_file_content = types.FunctionDeclaration(
                 type=types.Type.STRING,
                 description="The file_path to list files from, relative to the working directory. If not provided, lists files in the working directory itself. If not provided, lists files in the working directory itself.",
             ),
-        },
-        required=["directory"] # Genelde parametre zorunlu ise bu satır eklenir
+        }
     )
 )
