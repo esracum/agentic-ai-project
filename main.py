@@ -56,41 +56,53 @@ def main():
 
     )
 
-    response = client.models.generate_content(
-        model="gemini-2.5-flash-lite", 
-        contents=messages,
-        config= config
-    )
-
-    if response is None or response.usage_metadata is None:
-        print("response is malformed")
-        return
-    
-
-    if verbose_flag:
-        print(f"user prompt:{prompt}")
-        print(f"prompt tokens:{response.usage_metadata.prompt_token_count}")
-        print(f"response tokens:{response.usage_metadata.candidates_token_count}")
-    
+    max_iters = 20
+    for i in range(0, max_iters):
 
 
-    if response.function_calls:
+        response = client.models.generate_content(
+            model="gemini-2.5-flash", 
+            contents=messages,
+            config= config
+        )
+
+        if response is None or response.usage_metadata is None:
+            print("response is malformed")
+            return
         
-        for function_call_part in response.function_calls:
-            # --- DEĞİŞTİRECEĞİN KISIM BURASI ---
-            
-            # 1. Fonksiyonu çalıştır ve sonucu 'function_result' değişkenine al
-            function_result = call_function(function_call_part, verbose=verbose_flag)
 
-            # 2. Sonucu ekrana yazdır (Print)
-            print("\n--- DOSYA İÇERİĞİ / SONUÇ ---")
-            print(function_result)
-            print("------------------------------\n")
-            
-            # -----------------------------------
+        if verbose_flag:
+            print(f"user prompt:{prompt}")
+            print(f"prompt tokens:{response.usage_metadata.prompt_token_count}")
+            print(f"response tokens:{response.usage_metadata.candidates_token_count}")
 
-    else:
-        print(response.text)
+        
+        if response.candidates:
+            for candidate in response.candidates:
+                if candidate is None or candidate.content is None:
+                    continue
+                messages.append(candidate.content)
+        
+
+
+        if response.function_calls:
+            
+            for function_call_part in response.function_calls:
+                
+                # 1. Fonksiyonu çalıştır ve sonucu 'function_result' değişkenine al
+                function_result = call_function(function_call_part, verbose=verbose_flag)
+
+                # 2. Sonucu ekrana yazdır (Print)
+                # print("\n--- DOSYA İÇERİĞİ / SONUÇ ---")
+                # print(function_result)
+                # print("------------------------------\n")
+                
+                # 3. Fonksiyon çağrısını ve sonucunu mesajlara ekle
+                messages.append(function_result) 
+        else:
+            # Ajanın son cevabını al
+            print(response.text)
+            return
 
 if __name__ == "__main__":
     main()
