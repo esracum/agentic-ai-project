@@ -13,8 +13,12 @@ Standart LLM'lerin aksine, bu ajan sadece kod üretmez; ürettiği kodu yerel or
 
 ## Demo
 
-![Agent Demo](https://github.com/user-attachments/assets/4a8ccf50-0071-4398-98a8-a12d881780aa
-)
+
+
+https://github.com/user-attachments/assets/ae523fae-91b8-49bb-875d-4e19a179409a
+
+
+
 
 
 ## Temel Özellikler
@@ -64,5 +68,6 @@ Ajanı başlatmak için `main.py` dosyasını çalıştırın:
 
 ```bash
 uv run main.py args
+
 
 
